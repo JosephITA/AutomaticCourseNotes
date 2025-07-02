@@ -39,9 +39,9 @@ def download_video(video_element, download_dir):
     return filename
 
 
-def transcribe_video(video_path, transcript_dir, model):
+def transcribe_video(video_path, transcript_dir, model, language="it"):
     basename = os.path.splitext(os.path.basename(video_path))[0]
-    result = model.transcribe(video_path)
+    result = model.transcribe(video_path, language=language)
     txt_path = os.path.join(transcript_dir, f"{basename}.txt")
     with open(txt_path, "w") as f:
         f.write(result.get("text", ""))
@@ -52,6 +52,7 @@ def main():
     url = input("Course login URL: ").strip()
     username = input("Username: ").strip()
     password = input("Password: ").strip()
+    language = input("Transcription language [it]: ").strip() or "it"
 
     download_dir = os.path.join(os.getcwd(), "downloads")
     transcript_dir = os.path.join(os.getcwd(), "transcripts")
@@ -75,7 +76,7 @@ def main():
             if video_path is None:
                 print("Could not download video.")
                 continue
-            txt = transcribe_video(video_path, transcript_dir, model)
+            txt = transcribe_video(video_path, transcript_dir, model, language)
             print(f"Transcript saved to {txt}")
             proceed = input("Proceed to next video? (y/n): ").strip().lower()
             if proceed != 'y':

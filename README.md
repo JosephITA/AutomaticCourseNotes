@@ -21,7 +21,8 @@ pip install selenium webdriver-manager requests whisper
 
 ## Usage
 
-Run the script and provide the course URL along with your login credentials when prompted:
+Run the script and provide the course URL along with your login credentials when prompted.
+You will also be asked for the transcript language; press Enter to use the default Italian (`it`):
 
 ```bash
 python course_transcriber.py
