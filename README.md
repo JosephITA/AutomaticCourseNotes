@@ -11,12 +11,20 @@ The script `course_transcriber.py` uses Selenium to log in to a course website, 
 - `webdriver_manager`
 - `requests`
 - `whisper` (requires `ffmpeg`)
+- `pyvirtualdisplay` (requires the `Xvfb` system package)
 - A compatible browser (Chrome) installed
 
 Install dependencies with:
 
 ```bash
-pip install selenium webdriver-manager requests whisper
+pip install selenium webdriver-manager requests whisper pyvirtualdisplay
+```
+
+Install the `Xvfb` package on your system so that `pyvirtualdisplay` can create
+a virtual display:
+
+```bash
+sudo apt-get install xvfb
 ```
 
 ## Usage

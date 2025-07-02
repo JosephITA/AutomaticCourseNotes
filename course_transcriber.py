@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from pyvirtualdisplay import Display
 import whisper
 
 
@@ -58,30 +59,31 @@ def main():
     os.makedirs(download_dir, exist_ok=True)
     os.makedirs(transcript_dir, exist_ok=True)
 
-    driver = setup_driver()
-    try:
-        login(driver, url, username, password)
+    with Display():
+        driver = setup_driver()
+        try:
+            login(driver, url, username, password)
 
-        # Replace this selector with one that matches your course's video elements
-        video_elements = driver.find_elements(By.TAG_NAME, "video")
-        if not video_elements:
-            print("No videos found on the page.")
-            return
+            # Replace this selector with one that matches your course's video elements
+            video_elements = driver.find_elements(By.TAG_NAME, "video")
+            if not video_elements:
+                print("No videos found on the page.")
+                return
 
-        model = whisper.load_model("base")
-        for idx, video in enumerate(video_elements, start=1):
-            print(f"Processing video {idx}...")
-            video_path = download_video(video, download_dir)
-            if video_path is None:
-                print("Could not download video.")
-                continue
-            txt = transcribe_video(video_path, transcript_dir, model)
-            print(f"Transcript saved to {txt}")
-            proceed = input("Proceed to next video? (y/n): ").strip().lower()
-            if proceed != 'y':
-                break
-    finally:
-        driver.quit()
+            model = whisper.load_model("base")
+            for idx, video in enumerate(video_elements, start=1):
+                print(f"Processing video {idx}...")
+                video_path = download_video(video, download_dir)
+                if video_path is None:
+                    print("Could not download video.")
+                    continue
+                txt = transcribe_video(video_path, transcript_dir, model)
+                print(f"Transcript saved to {txt}")
+                proceed = input("Proceed to next video? (y/n): ").strip().lower()
+                if proceed != 'y':
+                    break
+        finally:
+            driver.quit()
 
 
 if __name__ == "__main__":
