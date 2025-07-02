@@ -12,6 +12,7 @@ The script `course_transcriber.py` uses Selenium to log in to a course website, 
 - `requests`
 - `whisper` (requires `ffmpeg`)
 - `pyvirtualdisplay` to create a virtual `Xvfb` display when running headless
+
 - A compatible browser (Chrome) installed
 
 Install dependencies with:
@@ -28,6 +29,7 @@ for example:
 
 ```bash
 sudo apt-get install ffmpeg xvfb
+
 ```
 
 ## Usage
