@@ -11,17 +11,29 @@ The script `course_transcriber.py` uses Selenium to log in to a course website, 
 - `webdriver_manager`
 - `requests`
 - `whisper` (requires `ffmpeg`)
+- `pyvirtualdisplay` to create a virtual `Xvfb` display when running headless
 - A compatible browser (Chrome) installed
 
 Install dependencies with:
 
 ```bash
-pip install selenium webdriver-manager requests whisper
+pip install selenium webdriver-manager requests whisper pyvirtualdisplay
+```
+
+### System packages
+
+The script relies on `ffmpeg` for audio processing and `Xvfb` for running the
+browser in headless mode. Install them using your system package manager,
+for example:
+
+```bash
+sudo apt-get install ffmpeg xvfb
 ```
 
 ## Usage
 
-Run the script and provide the course URL along with your login credentials when prompted:
+After installing these tools and dependencies, run the script and provide the
+course URL along with your login credentials when prompted:
 
 ```bash
 python course_transcriber.py
